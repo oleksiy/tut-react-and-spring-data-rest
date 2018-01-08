@@ -15,9 +15,13 @@
  */
 package com.greglturnquist.payroll;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
+import java.sql.Time;
+import java.time.LocalTime;
 
 /**
  * @author Greg Turnquist
@@ -27,7 +31,7 @@ import org.springframework.stereotype.Component;
 public class DatabaseLoader implements CommandLineRunner {
 
 	private final EmployeeRepository repository;
-
+	final static org.slf4j.Logger logger = LoggerFactory.getLogger(DatabaseLoader.class);
 	@Autowired
 	public DatabaseLoader(EmployeeRepository repository) {
 		this.repository = repository;
@@ -42,6 +46,7 @@ public class DatabaseLoader implements CommandLineRunner {
 		this.repository.save(new Employee("Samwise", "Gamgee", "gardener"));
 		this.repository.save(new Employee("Meriadoc", "Brandybuck", "pony rider"));
 		this.repository.save(new Employee("Peregrin", "Took", "pipe smoker"));
+		logger.info("Data has been loaded at " + Time.valueOf(LocalTime.now()));
 	}
 }
 // end::code[]
